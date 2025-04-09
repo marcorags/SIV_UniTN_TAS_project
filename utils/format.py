@@ -123,7 +123,9 @@ def process_file(json_file: Path, rig_file: str, rig_name: str):
     time_range = get_time_range(marker_data)
     pose3d, marker_labels = get_pose_array(marker_data, time_range)
     joint_names, marker_idxs = load_rig_mapping(rig_file, rig_name, marker_labels)
-    formatted_pose3d = apply_rig_format(pose3d, joint_names, marker_idxs)
+    formatted_pose3d = apply_rig_format(pose3d, joint_names, marker_idxs) # shape (T, 17, 3)
+    # Now we have to adapt the dataset to the shape for the FACT model
+    formatted_pose3d = formatted_pose3d.reshape(formatted_pose3d.shape[0], -1) # --> shape (T, 51)
 
     # Extract label from the folder name (e.g., 'Flip')
     label_str = json_file.parent.name
@@ -131,6 +133,10 @@ def process_file(json_file: Path, rig_file: str, rig_name: str):
         raise ValueError(f"Unknown label: {label_str}")
     label = LABEL_MAP[label_str]
     frame_labels = np.full((formatted_pose3d.shape[0],), label, dtype=np.int64) # Expand the name of the label of the jump to all the frames
+    # Check eventually mismatch
+    T = min(formatted_pose3d.shape[0], frame_labels.shape[0])
+    formatted_pose3d = formatted_pose3d[:T]
+    frame_labels = frame_labels[:T]
 
     # Output filenames
     filename = json_file.with_suffix('.npy').name.replace('.npy', '')
