@@ -20,10 +20,11 @@ LABEL_MAP = {
         'Toeloop': 6
     }
 
-# Save to FACT structure
-FEATURES_DIR = Path("./CVPR2024-FACT/data/fsjump/features")
-LABELS_DIR = Path("./CVPR2024-FACT/data/fsjump/labels")
-SPLITS_DIR = Path("./CVPR2024-FACT/data/fsjump/splits")
+# Save in FACT structure
+BASE_DIR = Path("./CVPR2024-FACT/data/fsjump")
+FEATURES_DIR = BASE_DIR / "features"
+LABELS_DIR = BASE_DIR / "labels"
+SPLITS_DIR = BASE_DIR / "splits"
 FEATURES_DIR.mkdir(parents=True, exist_ok=True)
 LABELS_DIR.mkdir(parents=True, exist_ok=True)
 SPLITS_DIR.mkdir(parents=True, exist_ok=True)
@@ -148,12 +149,32 @@ def process_file(json_file: Path, rig_file: str, rig_name: str):
 
     return filename
 
+# Generates a mapping.txt file in the FACT structure. 
+# Format: <ID> <action_name>
+def generate_mapping_txt(output_dir: Path = BASE_DIR) -> None:
+    # If LABEL_MAP already exists, use it (sorted by ID)
+    if 'LABEL_MAP' in globals():
+        label_items = sorted(LABEL_MAP.items(), key=lambda x: x[1])  # Sort by ID
+    else:
+        # Otherwise create a progressive mapping from JUMPS
+        label_items = [(jump, idx) for idx, jump in enumerate(JUMPS)]
+    
+    # Write the file in the main FACT dataset directory
+    mapping_path = output_dir / "mapping.txt"
+    with open(mapping_path, 'w') as f:
+        for jump, idx in label_items:
+            f.write(f"{idx} {jump}\n")
+    print(f"Created mapping file: {mapping_path}")
+
 
 def main():
-    # parser
+    # Parser
     parser = ArgumentParser()
     parser.add_argument("--rig", type=str, default='Human3.6M', help="Rig mapping to use")
     args = parser.parse_args()
+
+    # Generate mapping.txt file
+    generate_mapping_txt()
 
     files = [Path(f'./json/{skater}/{jump}/{f}')
              for skater in SKATERS
