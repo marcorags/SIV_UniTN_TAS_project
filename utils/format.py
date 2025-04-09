@@ -132,8 +132,8 @@ def process_file(json_file: Path, rig_file: str, rig_name: str):
     label_str = json_file.parent.name
     if label_str not in LABEL_MAP:
         raise ValueError(f"Unknown label: {label_str}")
-    label = LABEL_MAP[label_str]
-    frame_labels = np.full((formatted_pose3d.shape[0],), label, dtype=np.int64) # Expand the name of the label of the jump to all the frames
+    # label = LABEL_MAP[label_str]
+    frame_labels = np.full((formatted_pose3d.shape[0],), label_str, dtype=np.object_) # Expand the name of the label of the jump to all the frames
     
     # Check eventually mismatch
     T = min(formatted_pose3d.shape[0], frame_labels.shape[0])
