@@ -2,3 +2,5 @@
 !/json/.gitkeep
 
 /myenv/*
+
+/log_test/*
