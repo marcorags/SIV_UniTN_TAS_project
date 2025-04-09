@@ -23,7 +23,7 @@ LABEL_MAP = {
 # Save in FACT structure
 BASE_DIR = Path("./CVPR2024-FACT/data/fsjump")
 FEATURES_DIR = BASE_DIR / "features"
-LABELS_DIR = BASE_DIR / "labels"
+LABELS_DIR = BASE_DIR / "groundTruth"
 SPLITS_DIR = BASE_DIR / "splits"
 FEATURES_DIR.mkdir(parents=True, exist_ok=True)
 LABELS_DIR.mkdir(parents=True, exist_ok=True)
@@ -134,6 +134,7 @@ def process_file(json_file: Path, rig_file: str, rig_name: str):
         raise ValueError(f"Unknown label: {label_str}")
     label = LABEL_MAP[label_str]
     frame_labels = np.full((formatted_pose3d.shape[0],), label, dtype=np.int64) # Expand the name of the label of the jump to all the frames
+    
     # Check eventually mismatch
     T = min(formatted_pose3d.shape[0], frame_labels.shape[0])
     formatted_pose3d = formatted_pose3d[:T]
@@ -142,10 +143,12 @@ def process_file(json_file: Path, rig_file: str, rig_name: str):
     # Output filenames
     filename = json_file.with_suffix('.npy').name.replace('.npy', '')
 
+    # Save features as .npy
     np.save(FEATURES_DIR / f"{filename}.npy", formatted_pose3d)
-    # print(formatted_pose3d)
-    np.save(LABELS_DIR / f"{filename}.npy", frame_labels)
-    # print(frame_labels)
+    # np.save(LABELS_DIR / f"{filename}.npy", frame_labels)
+    # Save labels as .txt
+    with open(LABELS_DIR / f"{filename}.txt", 'w') as f:
+        f.write("\n".join(map(str, frame_labels)))
 
     return filename
 
