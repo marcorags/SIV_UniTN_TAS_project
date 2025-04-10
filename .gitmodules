@@ -2,3 +2,4 @@
 [submodule "CVPR2024-FACT"]
 	path = CVPR2024-FACT
 	url = https://github.com/marcorags/CVPR2024-FACT
+	branch = main

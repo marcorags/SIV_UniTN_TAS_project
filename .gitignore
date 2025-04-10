@@ -4,3 +4,5 @@
 /myenv/*
 
 /log_test/*
+/log/*
+/wandb/*
