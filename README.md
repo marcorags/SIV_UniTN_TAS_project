@@ -17,6 +17,7 @@
 
 Before feeding the dataset to the FACT model preprocess it.
 From the ./SIV_UniTN_TAS_project folder run:
+
 ``` py ./utils/format.py ```
 
 ## Training
