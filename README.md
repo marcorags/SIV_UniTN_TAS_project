@@ -9,7 +9,7 @@
     - ``` cd .\SIV_UniTN_TAS_project ```
 3. Install the requirements:
     - ``` pip install -r requirements.txt ```
-4. Download the json dataset from [FS-Jump3D](https://github.com/ryota-skating/FS-Jump3D), unzip the json.zip and and put the json folder in the main project folder.
+4. Download the json dataset from [FS-Jump3D](https://github.com/ryota-skating/FS-Jump3D) following the instructions.
 5. Create folder data in CVPR2024-FACT:
     - ```mkdir  .\CVPR2024-FACT\data```
 
