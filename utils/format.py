@@ -117,7 +117,9 @@ def apply_rig_format(pose3d: np.ndarray, joint_names: List[str], marker_idxs: Li
 #     output_filename = json_file.with_suffix('.npy').name
 #     np.save(output_dir / output_filename, formatted_pose3d)
 
+#
 # NEW VERSION: directly save the features and labels in the proper folders 
+# This version allows us to fromatting the FS-Jump3D dataset
 def process_file(json_file: Path, rig_file: str, rig_name: str):
     print(f"Converting {json_file} ...")
     marker_data = get_marker_data(json_file)
