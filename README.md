@@ -1,5 +1,11 @@
 # SIV_UniTN_TAS_project
 
+This repository contains code and documentation of the final project developed for the course _Signal, Image & Video_ taught at **University of Trento**.
+
+In this project, we replicate and adapt the **Frame-Action Cross-attention Transformer (FACT)** model for **Temporal Action Segmentation (TAS)** to a simplified scenario based on the **FS-Jump3D** dataset, which contains 3D pose sequences of figure skating jumps. Our objective is to evaluate how FACT behaves in a context where each video contains a single annotated action segment, without complex transitions or background actions. This setup allows us to observe how the model processes pose-only input and whether its temporal reasoning capabilities remain effective even in a constrained setting.
+
+A more detailed explanation of the project is available [here](https://github.com/marcorags/SIV_UniTN_TAS_project/blob/main/SIV_Report_Fiorentino_Ragusa.pdf).
+
 ## Preparation
 
 1. Clone the main repo [SIV_UniTN_TAS_project](https://github.com/marcorags/SIV_UniTN_TAS_project) including also the submodule:
@@ -22,13 +28,17 @@ From the ./SIV_UniTN_TAS_project folder run:
 
 ## Training
 
+Now it's time to train the model:
+
 ```shell
 python -m CVPR2024-FACT.train --cfg CVPR2024-FACT/configs/fsjump.yaml 
 ```
 
-To modify the model parameters refer to the fsjump.yaml file.
+To modify the model parameters refer to the ./CVPR2024-FACT/configs/fsjump.yaml file.
 
 ## Evaluation
+
+To evaluate the model run:
 
 ```shell
 python -m CVPR2024-FACT.eval
