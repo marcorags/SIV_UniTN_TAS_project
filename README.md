@@ -2,7 +2,7 @@
 
 This repository contains code and documentation of the final project developed for the course _Signal, Image & Video_ taught at **University of Trento**.
 
-In this project, we replicate and adapt the **Frame-Action Cross-Attention Temporal modelling (FACT)** model for **Temporal Action Segmentation (TAS)** to a simplified scenario based on the **FS-Jump3D** dataset, which contains 3D pose sequences of figure skating jumps. Our objective is to evaluate how FACT behaves in a context where each video contains a single annotated action segment, without complex transitions or background actions. This setup allows us to observe how the model processes pose-only input and whether its temporal reasoning capabilities remain effective even in a constrained setting.
+In this project, we replicate and adapt the **Frame-Action Cross-Attention Temporal Modelling (FACT)** model for **Temporal Action Segmentation (TAS)** to a simplified scenario based on the **FS-Jump3D** dataset, which contains 3D pose sequences of figure skating jumps. Our objective is to evaluate how FACT behaves in a context where each video contains a single annotated action segment, without complex transitions or background actions. This setup allows us to observe how the model processes pose-only input and whether its temporal reasoning capabilities remain effective even in a constrained setting.
 
 A more detailed explanation of the project is available [here](https://github.com/marcorags/SIV_UniTN_TAS_project/blob/main/SIV_Report_Fiorentino_Ragusa.pdf).
 
