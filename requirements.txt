@@ -8,3 +8,5 @@ tqdm==4.59.0
 wandb==0.16.2
 yacs==0.1.8
 seaborn
+plotly
+# nbformat
